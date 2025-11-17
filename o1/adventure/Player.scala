@@ -30,16 +30,20 @@ class Player(startingArea: Area):
     else
       "You don't have that!"
 
-  def examine(itemName: String): String =
-    var returnString = ""
-    if this.has(itemName) then
-      carrying.get(itemName).foreach(item => returnString = s"You look closely at the $itemName.\n${item.description}")
-    else
-      returnString = "If you want to examine something, you need to pick it up first."
-    returnString
+//  def examine(itemName: String): String =
+//    var returnString = ""
+//    if this.has(itemName) then
+//      carrying.get(itemName).foreach(item => returnString = s"You look closely at the $itemName.\n${item.description}")
+//    else
+//      returnString = "If you want to examine something, you need to pick it up first."
+//    returnString
+//
+
+  def examine(thingyName: String): String =
+    ""
 
   def get(itemName: String): String =
-    if this.currentLocation.contains(itemName) then
+    if this.currentLocation.containsItem(itemName) then
       val pickedUp = this.currentLocation.removeItem(itemName)
       pickedUp.foreach(item => carrying += item.name -> item)
       s"You pick up the ${itemName}."

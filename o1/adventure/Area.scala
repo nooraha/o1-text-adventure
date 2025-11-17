@@ -13,15 +13,22 @@ class Area(var name: String, var description: String):
 
   private val neighbors = Map[String, Area]()
   private val items = Map[String, Item]()
+  private val thingies = Map[String, InteractableThingy]()
 
   def addItem(item: Item): Unit =
     this.items += item.name -> item
 
-  def contains(itemName: String): Boolean =
+  def containsItem(itemName: String): Boolean =
     this.items.contains(itemName)
 
   def removeItem(itemName: String): Option[Item] =
     this.items.remove(itemName)
+
+  def addThingy(interactableThingy: InteractableThingy): Unit =
+    this.thingies += interactableThingy.name -> interactableThingy
+
+  def containsThingy(thingyName: String): Boolean =
+    this.thingies.contains(thingyName)
 
   /** Returns the area that can be reached from this area by moving in the given direction. The result
     * is returned in an `Option`; `None` is returned if there is no exit in the given direction. */
