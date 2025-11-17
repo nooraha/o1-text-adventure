@@ -1,0 +1,11 @@
+write description of areas here
+
+Starting area:
+Bedroom
+thingies:
+- dog
+- door to hallway
+
+Hallway
+- stairs downstairs
+- window looking outside
