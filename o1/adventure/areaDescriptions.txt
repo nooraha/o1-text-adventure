@@ -9,3 +9,14 @@ thingies:
 Hallway
 - stairs downstairs
 - window looking outside
+- Stairs to attic (to get gun) (only with key to attic trapdoor)
+
+Living room
+- TV
+- Phone
+
+Kitchen
+- Tap
+
+Bathroom
+-Mirror
