@@ -5,6 +5,7 @@ Bedroom
 thingies:
 - dog
 - door to hallway
+- cupboard
 
 Hallway
 - stairs downstairs
