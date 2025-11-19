@@ -1,5 +1,7 @@
 package o1.adventure
 
+import scala.collection.mutable.Map
+
 /** The class `Adventure` represents text adventure games. An adventure consists of a player and
   * a number of areas that make up the game world. It provides methods for playing the game one
   * turn at a time and for checking the state of the game.
@@ -13,27 +15,41 @@ class Adventure:
   /** the name of the game */
   val title = "A Forest Adventure"
 
-  private val middle      = Area("Forest", "You are somewhere in the forest. There are a lot of trees here.\nBirds are singing.")
-  private val northForest = Area("Forest", "You are somewhere in the forest. A tangle of bushes blocks further passage north.\nBirds are singing.")
-  private val southForest = Area("Forest", "The forest just goes on and on.")
-  private val clearing    = Area("Forest Clearing", "You are at a small clearing in the middle of forest.\nNearly invisible, twisted paths lead in many directions.")
-  private val tangle      = Area("Tangle of Bushes", "You are in a dense tangle of bushes. It's hard to see exactly where you're going.")
-  private val home        = Area("Home", "Home sweet home! Now the only thing you need is a working remote control.")
-  private val destination = home
+//  private val middle      = Area("Forest", "You are somewhere in the forest. There are a lot of trees here.\nBirds are singing.")
+//  private val northForest = Area("Forest", "You are somewhere in the forest. A tangle of bushes blocks further passage north.\nBirds are singing.")
+//  private val southForest = Area("Forest", "The forest just goes on and on.")
+//  private val clearing    = Area("Forest Clearing", "You are at a small clearing in the middle of forest.\nNearly invisible, twisted paths lead in many directions.")
+//  private val tangle      = Area("Tangle of Bushes", "You are in a dense tangle of bushes. It's hard to see exactly where you're going.")
+//  private val home        = Area("Home", "Home sweet home! Now the only thing you need is a working remote control.")
+//  private val destination = home
+//
+//  middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
+//  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
+//  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
+//  clearing   .setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
+//  tangle     .setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
+//  home       .setNeighbors(Vector(                                                                  "west" -> tangle     ))
+//
+//  // TODO: Uncomment the two lines below. Improve the code so that it places the items in clearing and southForest, respectively.
+//  clearing.addItem(Item("battery", "It's a small battery cell. Looks new."))
+//  southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
+//
+//  /** The character that the player controls in the game. */
+//  val player = Player(middle)
 
-  middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
-  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-  clearing   .setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
-  tangle     .setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
-  home       .setNeighbors(Vector(                                                                  "west" -> tangle     ))
+  private val bedroom = Area("Bedroom", "A small room with a low ceiling and a tiny north-facing window. " +
+  "The only pieces of furniture are your bed stuffed away into the corner, a small table, writing desk and a bookshelf overflowing with boooks. " +
+    "It's always a bit breezy.")
+  private val hallway = Area("Hallway", "A long and narrow hallway stands before you, the corners unseen in the darkness. The door to the bathroom looms on the left, " +
+    "with the stairs leading down on the opposite side. A handmade carpet keeps you warm against the unheated wooden floor.")
+  private val destination = bedroom
+  
+  bedroom.setNeighbors(Vector("forward" -> hallway))
+  hallway.setNeighbors(Vector("forward" -> bedroom))
+  
+  bedroom.addThingy(InteractableThingy("bed", "Your bed. It's very uncomfortable.", bedroom))
 
-  // TODO: Uncomment the two lines below. Improve the code so that it places the items in clearing and southForest, respectively.
-  clearing.addItem(Item("battery", "It's a small battery cell. Looks new."))
-  southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-
-  /** The character that the player controls in the game. */
-  val player = Player(middle)
+  val player = Player(bedroom)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
@@ -71,6 +87,8 @@ class Adventure:
     if outcomeReport.isDefined then
       this.turnCount += 1
     outcomeReport.getOrElse(s"""Unknown command: "$command".""")
+
+
 
 end Adventure
 

@@ -13,6 +13,7 @@ class Player(startingArea: Area):
 
   private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
+  private var currentThingy = None
 
   private var carrying = Map[String, Item]()
 
@@ -40,7 +41,14 @@ class Player(startingArea: Area):
 //
 
   def examine(thingyName: String): String =
-    ""
+    if this.currentLocation.containsThingy(thingyName) then
+      this.currentLocation = this.currentLocation.getThingies(thingyName)
+      s"You examine the $thingyName."
+    else
+      s"There is no $thingyName here."
+
+  def giveItem(item: Item): Unit =
+    carrying += item.name -> item
 
   def get(itemName: String): String =
     if this.currentLocation.containsItem(itemName) then
@@ -61,9 +69,6 @@ class Player(startingArea: Area):
       for item <- carrying.keys do
         returnString += s"\n$item"
       returnString
-
-
-
 
   /** Attempts to move the player in the given direction. This is successful if there
     * is an exit from the player’s current location towards the direction name. Returns

@@ -21,3 +21,26 @@ Kitchen
 
 Bathroom
 -Mirror
+
+
+assignment requirements:
+
+new text commands
+- unlock
+- examine (object)
+
+victory condition
+-
+
+welcome message
+- intro to game
+
+help command
+- display info
+
+npcs
+- the dog
+- the intruder in the house
+- the phone
+
+

@@ -11,9 +11,9 @@ import scala.collection.mutable.Map
   * @param description  a basic description of the area (typically not including information about items) */
 class Area(var name: String, var description: String):
 
-  private val neighbors = Map[String, Area]()
-  private val items = Map[String, Item]()
-  private val thingies = Map[String, InteractableThingy]()
+  protected val neighbors = Map[String, Area]()
+  protected val items = Map[String, Item]()
+  protected val thingies = Map[String, InteractableThingy]()
 
   def addItem(item: Item): Unit =
     this.items += item.name -> item
@@ -23,6 +23,9 @@ class Area(var name: String, var description: String):
 
   def removeItem(itemName: String): Option[Item] =
     this.items.remove(itemName)
+
+  def getThingies: Map[String, InteractableThingy] =
+    this.thingies
 
   def addThingy(interactableThingy: InteractableThingy): Unit =
     this.thingies += interactableThingy.name -> interactableThingy
@@ -55,11 +58,11 @@ class Area(var name: String, var description: String):
     * DIRECTIONS SEPARATED BY SPACES". The items and directions are listed in an arbitrary order. */
   def fullDescription: String =
     val exitList = "\n\nExits available: " + this.neighbors.keys.mkString(" ")
-    var itemList = ""
-    if items.nonEmpty then
-      itemList = s"\nYou see here:"
-      items.keys.foreach(s => itemList += " " + s)
-    this.description + itemList + exitList
+    var thingyList = ""
+    if thingies.nonEmpty then
+      thingyList = s"\nYou see here:"
+      thingies.keys.foreach(s => thingyList += " " + s)
+    this.description + thingyList + exitList
 
 
   /** Returns a single-line description of the area for debugging purposes. */
