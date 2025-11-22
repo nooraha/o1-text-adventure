@@ -11,7 +11,7 @@ import scala.collection.mutable.Map
   * @param startingArea  the player’s initial location */
 class Player(startingArea: Area):
 
-  private var currentLocation = startingArea        // gatherer: changes in relation to the previous location
+  private var currentLocation: Area = startingArea        // gatherer: changes in relation to the previous location
   private var quitCommandGiven = false              // one-way flag
   private var currentThingy = None
 
@@ -30,6 +30,14 @@ class Player(startingArea: Area):
       s"You drop the $itemName."
     else
       "You don't have that!"
+
+  def take(itemName: String): String =
+    if this.currentLocation.containsItem(itemName) then
+      val pickedUp = this.currentLocation.removeItem(itemName)
+      pickedUp.foreach(item => carrying += item.name -> item)
+      s"You pick up the ${itemName}."
+    else
+      s"There is no ${itemName} here to pick up."
 
 //  def examine(itemName: String): String =
 //    var returnString = ""
@@ -78,7 +86,16 @@ class Player(startingArea: Area):
     this.currentLocation = destination.getOrElse(this.currentLocation)
     if destination.isDefined then s"You go $direction." else s"You can't go $direction."
 
+  def quietGo(area: Area) =
+    this.currentLocation = area
 
+  def trySecretExitCommand(command: String): Option[String] =
+    if this.currentLocation.containsSecretExitCommand(command) then
+      val desc = Some(this.currentLocation.getSecretExitCommands(command)(0))
+      this.quietGo(this.currentLocation.getSecretExitCommands(command)(1))
+      desc
+    else
+      None
 
   /** Causes the player to rest for a short while (this has no substantial effect in game terms).
     * Returns a description of what happened. */

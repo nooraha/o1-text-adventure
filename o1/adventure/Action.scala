@@ -17,14 +17,13 @@ class Action(input: String):
   def execute(actor: Player): Option[String] =
     this.verb match
       case "go"        => Some(actor.go(this.modifiers))
-      case "rest"      => Some(actor.rest())
+      // case "rest"      => Some(actor.rest())
       case "quit"      => Some(actor.quit())
-      case "xyzzy"     => Some("The grue tastes yummy.")
-      case "get"       => Some(actor.get(this.modifiers))
-      case "drop"      => Some(actor.drop(this.modifiers))
+      // case "drop"      => Some(actor.drop(this.modifiers))
       case "examine"   => Some(actor.examine(this.modifiers))
       case "inventory" => Some(actor.inventory)
-      case other       => None
+      case "take" => Some(actor.take(this.modifiers))
+      case other       => actor.trySecretExitCommand(commandText)
 
   /** Returns a textual description of the action object, for debugging purposes. */
   override def toString = s"$verb (modifiers: $modifiers)"

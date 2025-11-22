@@ -14,12 +14,26 @@ class Area(var name: String, var description: String):
   protected val neighbors = Map[String, Area]()
   protected val items = Map[String, Item]()
   protected val thingies = Map[String, InteractableThingy]()
+  protected val secretExitCommands = Map[String, (String, Area)]()
+
+  def addSecretExitCommand(command: String, description: String, area: Area): Unit =
+    this.secretExitCommands += command -> (description, area)
+
+  def containsSecretExitCommand(command: String): Boolean =
+    this.secretExitCommands.contains(command)
+
+  def getSecretExitCommands = this.secretExitCommands
 
   def addItem(item: Item): Unit =
     this.items += item.name -> item
 
   def containsItem(itemName: String): Boolean =
     this.items.contains(itemName)
+
+  // Warnig: Be SUPER SUPER sure that the item you're trying to get exists in the code already. Not using option because I don't like it lol
+  def getItem(itemName: String): Item =
+    this.items(itemName)
+
 
   def removeItem(itemName: String): Option[Item] =
     this.items.remove(itemName)
@@ -62,8 +76,15 @@ class Area(var name: String, var description: String):
     if thingies.nonEmpty then
       thingyList = s"\nYou see here:"
       thingies.keys.foreach(s => thingyList += " " + s)
-    this.description + thingyList + exitList
+    this.description + thingyList + this.secretExitList + exitList
 
+
+  def secretExitList: String =
+    var sList = ""
+    if secretExitCommands.nonEmpty then
+      sList = s"\n\nHere you can:"
+      secretExitCommands.keys.foreach(s => sList += " " + s)
+    sList
 
   /** Returns a single-line description of the area for debugging purposes. */
   override def toString =

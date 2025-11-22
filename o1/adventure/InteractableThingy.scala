@@ -8,7 +8,15 @@ class InteractableThingy(name: String, description: String, val exitArea: Area) 
   override val neighbors = Map[String, Area]("back" -> exitArea)
 
   override def fullDescription: String =
-    this.description + this.exitStr
+    this.description + this.secretExitList + this.itemList + this.exitStr
+
+  def itemList: String =
+    var itemList = ""
+    if items.nonEmpty then
+      itemList = s"\n\nYou see here:"
+      items.keys.foreach(s => itemList += " " + s)
+    itemList
+
 
   def exitStr: String = "\n\nIf you're done looking, you can exit with 'go back'."
 
@@ -69,6 +77,24 @@ class LockedDoor(name: String, description: String, val key: Item, val originalA
     if locked then
       lockedText = " It's locked."
     this.description + lockedText + this.exitStr
+
+
+}
+
+class Telephone(name: String, description: String, exitArea: Area) extends InteractableThingy(name, description, exitArea) {
+
+  val conversationFlow = Vector[(String, Vector[String])]()
+  var convoTurn = 0
+
+  def continueConvo(answerOption: Int) =
+    val current = conversationFlow(convoTurn)
+    if answerOption < current(1).length then
+      println(current(0))
+      println()
+      for s <- current(1).indices do
+        println(s"[$s] ${current(1)(s)}")
+
+      println("Please type the number of your chosen answer.")
 
 
 }
