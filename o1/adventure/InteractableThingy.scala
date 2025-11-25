@@ -36,25 +36,6 @@ class InteractableThingy(name: String, description: String, val exitArea: Area) 
   // each thingy should have 'return' action to go back to area
 }
 
-class ContainerThingy(name: String, description: String, area: Area) extends InteractableThingy(name, description, area) {
-
-  def take(actor: Player, itemName: String): String =
-    if this.containsItem(itemName) then
-      actor.giveItem(items(itemName))
-      items.remove(itemName)
-      s"You take the $itemName."
-    else
-      s"There's no $itemName here."
-
-  override def fullDescription: String =
-    var itemList = ""
-    if items.nonEmpty then
-      itemList = s"\nIt contains:"
-      items.keys.foreach(s => itemList += " " + s)
-    this.description + itemList + this.exitStr
-
-}
-
 class LockedDoor(name: String, description: String, val key: Item, val originalArea: Area, val leadingToArea: Area, val exitDirection: String) extends InteractableThingy(name, description, originalArea) {
   var locked: Boolean = true
 
@@ -77,24 +58,6 @@ class LockedDoor(name: String, description: String, val key: Item, val originalA
     if locked then
       lockedText = " It's locked."
     this.description + lockedText + this.exitStr
-
-
-}
-
-class Telephone(name: String, description: String, exitArea: Area) extends InteractableThingy(name, description, exitArea) {
-
-  val conversationFlow = Vector[(String, Vector[String])]()
-  var convoTurn = 0
-
-  def continueConvo(answerOption: Int) =
-    val current = conversationFlow(convoTurn)
-    if answerOption < current(1).length then
-      println(current(0))
-      println()
-      for s <- current(1).indices do
-        println(s"[$s] ${current(1)(s)}")
-
-      println("Please type the number of your chosen answer.")
 
 
 }

@@ -37,7 +37,7 @@ class Player(startingArea: Area):
       pickedUp.foreach(item => carrying += item.name -> item)
       s"You pick up the ${itemName}."
     else
-      s"There is no ${itemName} here to pick up."
+      s"There is no ${itemName} here to take."
 
 //  def examine(itemName: String): String =
 //    var returnString = ""

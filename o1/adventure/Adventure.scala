@@ -15,27 +15,11 @@ class Adventure:
   /** the name of the game */
   val title = "A Forest Adventure"
 
-//  private val middle      = Area("Forest", "You are somewhere in the forest. There are a lot of trees here.\nBirds are singing.")
-//  private val northForest = Area("Forest", "You are somewhere in the forest. A tangle of bushes blocks further passage north.\nBirds are singing.")
-//  private val southForest = Area("Forest", "The forest just goes on and on.")
-//  private val clearing    = Area("Forest Clearing", "You are at a small clearing in the middle of forest.\nNearly invisible, twisted paths lead in many directions.")
-//  private val tangle      = Area("Tangle of Bushes", "You are in a dense tangle of bushes. It's hard to see exactly where you're going.")
-//  private val home        = Area("Home", "Home sweet home! Now the only thing you need is a working remote control.")
-//  private val destination = home
-//
-//  middle     .setNeighbors(Vector("north" -> northForest, "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-//  northForest.setNeighbors(Vector(                        "east" -> tangle, "south" -> middle,      "west" -> clearing   ))
-//  southForest.setNeighbors(Vector("north" -> middle,      "east" -> tangle, "south" -> southForest, "west" -> clearing   ))
-//  clearing   .setNeighbors(Vector("north" -> northForest, "east" -> middle, "south" -> southForest, "west" -> northForest))
-//  tangle     .setNeighbors(Vector("north" -> northForest, "east" -> home,   "south" -> southForest, "west" -> northForest))
-//  home       .setNeighbors(Vector(                                                                  "west" -> tangle     ))
-//
-//  // TODO: Uncomment the two lines below. Improve the code so that it places the items in clearing and southForest, respectively.
-//  clearing.addItem(Item("battery", "It's a small battery cell. Looks new."))
-//  southForest.addItem(Item("remote", "It's the remote control for your TV.\nWhat it was doing in the forest, you have no idea.\nProblem is, there's no battery."))
-//
-//  /** The character that the player controls in the game. */
-//  val player = Player(middle)
+  //TODO: implement take command
+  //TODO: check that all thingies and exits were added
+  //TODO: implement descriptions of all rooms and thingies
+  //TODO: change texts that came with the module (scalatut elämät stuff, game title etc)
+  //TODO: playtest game
 
   private val bedroom0 = Area("Bedroom", "You're in a small room with a low ceiling and a tiny north-facing window. \n" +
   "The only pieces of furniture are your bed stuffed away into the corner, \n" +
@@ -56,9 +40,13 @@ class Adventure:
   kitchen0.setNeighbor("north", livingroom0)
 
   bedroom0.addThingy(InteractableThingy("bed", "Your bed. It's very uncomfortable.", bedroom0))
+  bedroom0.addThingy(InteractableThingy("dog", "Your dog Frankie. It's curled up by the end of the bed, fast asleep.", bedroom0))
+  bedroom0.addThingy(InteractableThingy("drawer", "An ornate chest of drawers made of dark wood. You don't need anything from here right now.", bedroom0))
+  bedroom0.getThingies("dog").addSecretExitCommand("pet", "You pet the dog.", bedroom0)
   bathroom0.addThingy(InteractableThingy("mirror", "You can just barely make out your own reflection under all the dirt. " +
     "\nYou look very tired.", bathroom0))
   hallway0.addThingy(InteractableThingy("window", "It's dark outside.", hallway0))
+  hallway0.addThingy(InteractableThingy("door", "The door to the attic. It's locked.", hallway0))
   livingroom0.addThingy(InteractableThingy("window", "It's dark outside.", livingroom0))
   livingroom0.addThingy(InteractableThingy("television", "You look down at your old-timey box TV. The dark screen reflects your face back at you.", livingroom0))
   kitchen0.addThingy(InteractableThingy("sink", "A metallic sink covered in water stains. " +
@@ -79,7 +67,8 @@ class Adventure:
 
   livingroom1.addThingy(InteractableThingy("television", "The TV is playing a shoot-off scene from a classic Western movie from your childhood." +
     "\nYou don't remember turning the TV on. Maybe the controls are acting up again?", livingroom1))
-
+  livingroom1.addThingy(InteractableThingy("dog", "Your dog seems to have woken up from the sounds and followed you downstairs. It walks over to you and licks your hand.", livingroom1))
+  livingroom1.addThingy(InteractableThingy("window", "It's still dark outside.", livingroom1))
 
   private val livingroom2 = Area("Living room", "It's quiet again. The silence is almost eerie. You're tired, so you decide to go back to sleep." +
     "\nDid the TV really just turn on on its own, though?")
@@ -100,10 +89,17 @@ class Adventure:
 
   // add thingies
 
+  livingroom2.addThingy(InteractableThingy("dog", "It licks your hand. It also seems a bit relieved that it's quiet now.", livingroom2))
+  livingroom2.addThingy(InteractableThingy("window", "It's still dark outside.", livingroom2))
+  bedroom2.addThingy(InteractableThingy("bed", "Your bed. It looks inviting, but maybe you should investigate what you saw in the hallway first?",bedroom2))
+  bedroom2.addThingy(InteractableThingy("drawer", "An ornate chest of drawers made of dark wood. You don't need anything from here right now.", bedroom2))
+  bathroom2.addThingy(InteractableThingy("mirror", "You can just barely make out your reflection under all the dirt." +
+    "You look pale.", bathroom2))
+  hallway2.addThingy(InteractableThingy("door", "The door to the attic. It's locked.", hallway2))
 
   private val hallway3 = Area("Hallway", "You step back from the window, trembling. You aren't sure what you just saw, but in any case it isn't " +
     "\ngood. The only thought that pops into your mind is going downstairs to call for help on the telephone.")
-  private val livingroom3 = Area("Living room", "") // use the telephone
+  private val livingroom3 = Area("Living room", "You don't see Frankie anymore. Maybe it went back upstairs.") // use the telephone
   // dummy rooms w player being anxious
   private val bedroom3 = Area("Bedroom", "")
   private val bathroom3 = Area("Bathroom", "")
@@ -121,9 +117,16 @@ class Adventure:
 
 
   // add thingies
+  livingroom3.addThingy(InteractableThingy("window", "It somehow seems darker than before outside.", livingroom3))
+  bathroom3.addThingy(InteractableThingy("mirror", "", bathroom3))
+  hallway3.addThingy(InteractableThingy("window", "When you peer out again, you see only your garden as usual.", hallway3))
+  hallway3.addThingy(InteractableThingy("door", "The door to the attic. It's locked.", hallway3))
+  bedroom3.addThingy(InteractableThingy("bed", "", bedroom3))
+  bedroom3.addThingy(InteractableThingy("drawer", "An ornate chest of drawers made of dark wood. You don't need anything from here right now.", bedroom3))
+
 
   // add telephone to livingroom 3
-  livingroom3.addThingy(InteractableThingy("telephone", "", livingroom3))
+  livingroom3.addThingy(InteractableThingy("telephone", "A rustic rotary phone painted beige. You don't use it often, but this is a special case.", livingroom3))
 
   private val livingroom4 = Area("Living room", "You're really starting to panic now. You keep thinking you see movement somewhere within the shadows of the dark " +
     "\nroom in the corner of your eye, but when you turn to look, there's nothing there. " +
@@ -147,12 +150,16 @@ class Adventure:
   bathroom4.setNeighbor("east", hallway4)
 
   bedroom4.addThingy(InteractableThingy("drawer", "An ornate chest of drawers made of dark wood. It has drawers of many different sizes. You open them one at a time looking for the key.", bedroom4))
-  bedroom4.getThingies("drawer").addItem(Item("attic key", "The key to open the attic. It's a bit rusty."))
+  bedroom4.getThingies("drawer").addItem(Item("key", "The key to open the attic. It's a bit rusty."))
+  bedroom4.addThingy(InteractableThingy("bed", "", bedroom4))
+  bathroom4.addThingy(InteractableThingy("mirror", "", bathroom4))
+  hallway4.addThingy(InteractableThingy("window", "", hallway4))
+  livingroom4.addThingy(InteractableThingy("window", "", livingroom4))
 
   private val attic4 = Area("Attic", "The air here has a musty smell to it. The roof slants downwards at such a steep angle you have to watch your head. " +
     "\nThe floor is littered with boxes and old furniture, but in the middle stands a promising-looking cabinet. " +
     "\nYou should hurry")
-  hallway4.addThingy(LockedDoor("attic door", "The door leading to the attic.", bedroom4.getThingies("drawer").getItem("attic key"), hallway4, attic4, "upstairs"))
+  hallway4.addThingy(LockedDoor("door", "The door leading to the attic.", bedroom4.getThingies("drawer").getItem("key"), hallway4, attic4, "upstairs"))
   attic4.addThingy(InteractableThingy("cabinet", "The tall, oaken cabinet looms over you as you swing open the door to inspect its contents. A revolver lies on the top shelf.", attic5))
   attic4.getThingies("cabinet").addItem(Item("revolver", "It's made of metal with a worn leather handle. It's heavy."))
 
@@ -170,6 +177,9 @@ class Adventure:
   bathroom5.addThingy(InteractableThingy("mirror", "The mirror seems even dirtier than before. Underneath all the dirt, your own silhouette looks back at you." +
     "\nBehind you stands another shape." +
     "\nYou can't breathe.", bathroom5))
+
+  hallway5.addThingy(InteractableThingy("window", "", hallway5))
+  hallway5.addThingy(InteractableThingy("door", "The door to the attic.", hallway5))
 
   private val bathroom6 = Area("...", "")
 
