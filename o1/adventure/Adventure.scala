@@ -21,8 +21,10 @@ class Adventure:
     "the darkness. The door to the bathroom looms on the left, \n" +
     "with the stairs leading down on the opposite side. A handmade carpet keeps you warm against" +
     "\n the unheated wooden floor.")
-  private val bathroom0 = Area("Bathroom", "")
-  private val livingroom0 = Area("Living room", "")
+  private val bathroom0 = Area("Bathroom", "You're in a dimly lit bathroom, white tiles on the walls and a small window in front of you. \n"+
+    "The room is quite small, with just a sink and mirror to your left and a shower to your right")
+  private val livingroom0 = Area("Living room", "The living room in front of you is minimally furnished, soulless almost. \n"
+    +"There is a window on the facade side of the house, a couch and tv set in front of it and a drawer to your right.")
   private val kitchen0 = Area("Kitchen", "Your kitchen.")
 
   bedroom0.setNeighbors(Vector("south" -> hallway0))
@@ -64,10 +66,13 @@ class Adventure:
 
   private val livingroom2 = Area("Living room", "It's quiet again. The silence is almost eerie. You're tired, so you decide to go back to sleep." +
     "\nDid the TV really just turn on on its own, though?")
-  private val hallway2 = Area("Hallway", "") // you think you glimpse movement outside the window, examining window transports to 3
-  private val bathroom2 = Area("Bathroom", "") // you look distorted in the mirror
-  private val bedroom2 = Area("Bedroom", "") // normal bedroom, tired but you're suddenly too anxious to sleep, trying to sleep doesn't work
-  private val kitchen2 = Area("Kitchen", "") // normal kitchen
+  private val hallway2 = Area("Hallway", "You spot some movement through the window. /n"
+    "It startles you.") // you think you glimpse movement outside the window, examining window transports to 3
+  private val bathroom2 = Area("Bathroom", "You glance of at the mirror. You don't recognise yourself \n"+
+    "Who's reflection is that?") // you look distorted in the mirror
+  private val bedroom2 = Area("Bedroom", "You try to go to sleep, you're very tired. \n"
+    +"You feel too anxious to sleep but evertyhing seems to be okay in here") // normal bedroom, tired but you're suddenly too anxious to sleep, trying to sleep doesn't work
+  private val kitchen2 = Area("Kitchen", "You enter the kitchen.") // normal kitchen
 
   livingroom1.getThingies("television").addSecretExitCommand("turn off", "You quickly turn off the TV, and this time unplug it from the wall just in case.", livingroom2)
 
@@ -93,8 +98,8 @@ class Adventure:
     "\ngood. The only thought that pops into your mind is going downstairs to call for help on the telephone.")
   private val livingroom3 = Area("Living room", "You don't see Frankie anymore. Maybe it went back upstairs.") // use the telephone
   // dummy rooms w player being anxious
-  private val bedroom3 = Area("Bedroom", "")
-  private val bathroom3 = Area("Bathroom", "")
+  private val bedroom3 = Area("Bedroom", "You try to calm down on your bed.")
+  private val bathroom3 = Area("Bathroom", "You're too scared to look in the mirror again.")
 
 
   hallway2.addThingy(InteractableThingy("window", "As you peer through the window, you glimpse the dark garden outside. It's too dark to make out " +
@@ -131,9 +136,9 @@ class Adventure:
     "\n\n Before you have time to open your mouth to answer, the call cuts off. In a panic, you try dialing the number again, but the phone is dead. ", livingroom4)
 
   // add house4 rooms w player being anxious and wanting to get gun
-  private val hallway4 = Area("Hallway", "")
-  private val bedroom4 = Area("Bedroom", "")
-  private val bathroom4 = Area("Bathroom", "")
+  private val hallway4 = Area("Hallway", "You look at the attic door. You have to get the gun from there.")
+  private val bedroom4 = Area("Bedroom", "Look for the key to the attic")
+  private val bathroom4 = Area("Bathroom", "The key won't be in here.")
 
   livingroom4.setNeighbors(Vector("upstairs" -> hallway4))
   hallway4.setNeighbors(Vector("downstairs" -> livingroom4, "west" -> bathroom4, "north" -> bedroom4))
