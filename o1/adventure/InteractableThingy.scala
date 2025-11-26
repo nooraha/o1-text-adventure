@@ -20,20 +20,6 @@ class InteractableThingy(name: String, description: String, val exitArea: Area) 
 
   def exitStr: String = "\n\nIf you're done looking, you can exit with 'go back'."
 
-  // define options for actions when examining this
-  // how it should work:
-  // player enters: examine cupboard
-  // then it shows like a description of the cupboard idk the cupboard contains... something
-  // options for player: take gun (idk), return
-  // sooo thingy can contain items but can also have its own actions
-
-  // player calls action
-  // if action is a defined action then
-  // run that action with modifiers
-  // have a list of available actions at each moment
-  // list is affected by current area/object
-  // when examining thingy, list of actions is defined completely by that thingy
-  // each thingy should have 'return' action to go back to area
 }
 
 class LockedDoor(name: String, description: String, val key: Item, val originalArea: Area, val leadingToArea: Area, val exitDirection: String) extends InteractableThingy(name, description, originalArea) {
@@ -56,7 +42,8 @@ class LockedDoor(name: String, description: String, val key: Item, val originalA
   override def fullDescription: String =
     var lockedText = " It's unlocked."
     if locked then
-      lockedText = " It's locked."
+      lockedText = " It's locked. You can unlock it with 'unlock' if you have the " + key.name + "."
+
     this.description + lockedText + this.exitStr
 
 

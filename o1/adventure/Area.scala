@@ -81,7 +81,8 @@ class Area(var name: String, var description: String):
 
   def secretExitList: String =
     var sList = ""
-    if secretExitCommands.nonEmpty then
+    // lol to any TAs reading this: I'm sorry
+    if secretExitCommands.nonEmpty && !(secretExitCommands.size == 1 && secretExitCommands.contains("take")) then
       sList = s"\n\nHere you can:"
       secretExitCommands.keys.foreach(s => sList += " " + s)
     sList

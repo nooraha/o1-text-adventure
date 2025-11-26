@@ -22,8 +22,25 @@ class Action(input: String):
       // case "drop"      => Some(actor.drop(this.modifiers))
       case "examine"   => Some(actor.examine(this.modifiers))
       case "inventory" => Some(actor.inventory)
-      case "take" => Some(actor.take(this.modifiers))
+      case "take" =>      Some(actor.take(this.modifiers))
+      case "unlock" =>    Some(actor.tryUnlockingDoor())
+      case "help" =>      Some(this.help)
       case other       => actor.trySecretExitCommand(commandText)
+
+  def help: String =
+    "You must move through rooms with the 'go' command, interacting with the correct objects in order to progress the story. " +
+      "\nAs you explore, objects may change from when you previously saw them. " +
+      "\n\nHere is a list of all available commands:" +
+      "\ngo -direction-: move in the specified direction." +
+      "\nquit: quit the game." +
+      "\nexamine -object name-: (only available when the current area has something to examine) get a more detailed description of the object." +
+      "\ninventory: view your inventory." +
+      "\ntake -item name-: (only available when the current object being examined contains items) take the specified item. " +
+      "\nunlock: (only available when examining a locked door) unlock the door (if you have the key). " +
+      "\nhelp: view this list." +
+      "\n\nSome objects, upon being examined, may also contain custom interactions. " +
+      "\nThese will be listed and can be used as commands as they are given with no extra parameters needed."
+
 
   /** Returns a textual description of the action object, for debugging purposes. */
   override def toString = s"$verb (modifiers: $modifiers)"

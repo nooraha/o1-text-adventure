@@ -35,18 +35,11 @@ class Player(startingArea: Area):
     if this.currentLocation.containsItem(itemName) then
       val pickedUp = this.currentLocation.removeItem(itemName)
       pickedUp.foreach(item => carrying += item.name -> item)
-      s"You pick up the ${itemName}."
+      if this.currentLocation.getSecretExitCommands.contains("take") then
+        this.quietGo(this.currentLocation.getSecretExitCommands("take")(1))
+      s"You take the ${itemName}."
     else
       s"There is no ${itemName} here to take."
-
-//  def examine(itemName: String): String =
-//    var returnString = ""
-//    if this.has(itemName) then
-//      carrying.get(itemName).foreach(item => returnString = s"You look closely at the $itemName.\n${item.description}")
-//    else
-//      returnString = "If you want to examine something, you need to pick it up first."
-//    returnString
-//
 
   def examine(thingyName: String): String =
     if this.currentLocation.containsThingy(thingyName) then
@@ -89,6 +82,8 @@ class Player(startingArea: Area):
   def quietGo(area: Area) =
     this.currentLocation = area
 
+  // next time I'm implementing this as a separate class oh my GOD
+  // deadass forgot type matching was a thing before I had to implement lockedDoor
   def trySecretExitCommand(command: String): Option[String] =
     if this.currentLocation.containsSecretExitCommand(command) then
       val desc = Some(this.currentLocation.getSecretExitCommands(command)(0))
@@ -96,6 +91,12 @@ class Player(startingArea: Area):
       desc
     else
       None
+
+  def tryUnlockingDoor(): String =
+    this.currentLocation match {
+      case door: LockedDoor => door.unlock(this)
+      case _ => "There's nothing here to unlock."
+    }
 
   /** Causes the player to rest for a short while (this has no substantial effect in game terms).
     * Returns a description of what happened. */

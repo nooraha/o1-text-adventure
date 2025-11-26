@@ -1,51 +1,47 @@
-You wake up with your dog next to you. (pet dog)
+1. wake up in bedroom
 
-You're thirsty
+2. go to kitchen and examine the sink
 
-Go down the stairs, through the living room to the kitchen to grab some water.
+3. get water
 
-You hear sounds coming from the living room, you inspect it and the TV is on, playing weird sounds.
+4. go back to living room and examine tv
 
-You turn off the TV.
+5. turn off tv
 
-You go back upstairs to bed but there's now more sounds coming from downstairs. You go to living room, then kitchen. While in the kitchen you see movement in the corner of your eye.
+6. go back upstairs to the hallway
 
-You go to your phone in the hallway, trying to call a friend. They pick up and ask you what's wrong. The phone cuts off and you can't reach them again when you interact.
+7. examine window
 
-You panic. You want to get the gun.
+8. go back to the living room to use the phone
 
-Find the key in your bedroom cupboard to the attic where you keep your gun.
+9. examine telephone
 
-Open the attic and get the gun.
+10. call xx-xx-xxx
 
-You go downstairs after hearing more sounds. It stops when you enter the living room, there's nothing there
+11. go to the bedroom
 
-(You go into the bathroom and look into the mirror, you look bad.)
+12. examine drawer
 
-Once you go into the kitchen you hear sounds in the livin groom again. The dog starts barking at the stairs.
+13. take key
 
-Your hands shake while holding the gun. You go to the living room.
+14. go back to the hallway
 
-You can't see your dog. The shuffling continues, now from the kitchen.
+15. examine door
 
-When you switch between the living room and kitchen, the sound keeps coming from the other room.
+16. unlock
 
-Only stops once you go on the stairs.
+17. go upstairs
 
-The stairs feel longer than usual, you get concerned and freaked out. You can't go back down, only up.
+18. examine cabinet
 
-You can go into the bathroom and look in the mirror again. Something is off.
+19. take revolver
 
-You hear contiuous knocking on your bedroom window.
+20. go downstairs to the hallway
 
-You're too exhausted to go down the stairs anymore.
+21. go to the bathroom
 
-You go into the bedroom and look into the window.
+22. examine mirror
 
-You don't recognise yourself at all in the reflection.
-
-"Shoot"
-
-
+23. shoot
 
 

@@ -1,7 +1,5 @@
 package o1.adventure
 
-import scala.collection.mutable.Map
-
 /** The class `Adventure` represents text adventure games. An adventure consists of a player and
   * a number of areas that make up the game world. It provides methods for playing the game one
   * turn at a time and for checking the state of the game.
@@ -13,13 +11,7 @@ import scala.collection.mutable.Map
 class Adventure:
 
   /** the name of the game */
-  val title = "A Forest Adventure"
-
-  //TODO: implement take command
-  //TODO: check that all thingies and exits were added
-  //TODO: implement descriptions of all rooms and thingies
-  //TODO: change texts that came with the module (scalatut elämät stuff, game title etc)
-  //TODO: playtest game
+  val title = "In the black of night"
 
   private val bedroom0 = Area("Bedroom", "You're in a small room with a low ceiling and a tiny north-facing window. \n" +
   "The only pieces of furniture are your bed stuffed away into the corner, \n" +
@@ -138,8 +130,7 @@ class Adventure:
     "\n\n'Hello? Who's calling this late at night?' \n\n'CLICK'" +
     "\n\n Before you have time to open your mouth to answer, the call cuts off. In a panic, you try dialing the number again, but the phone is dead. ", livingroom4)
 
-  // add house4 rooms of being anxious and wanting to get gun
-
+  // add house4 rooms w player being anxious and wanting to get gun
   private val hallway4 = Area("Hallway", "")
   private val bedroom4 = Area("Bedroom", "")
   private val bathroom4 = Area("Bathroom", "")
@@ -158,10 +149,9 @@ class Adventure:
 
   private val attic4 = Area("Attic", "The air here has a musty smell to it. The roof slants downwards at such a steep angle you have to watch your head. " +
     "\nThe floor is littered with boxes and old furniture, but in the middle stands a promising-looking cabinet. " +
-    "\nYou should hurry")
+    "\nYou should hurry.")
   hallway4.addThingy(LockedDoor("door", "The door leading to the attic.", bedroom4.getThingies("drawer").getItem("key"), hallway4, attic4, "upstairs"))
-  attic4.addThingy(InteractableThingy("cabinet", "The tall, oaken cabinet looms over you as you swing open the door to inspect its contents. A revolver lies on the top shelf.", attic5))
-  attic4.getThingies("cabinet").addItem(Item("revolver", "It's made of metal with a worn leather handle. It's heavy."))
+
 
   private val attic5 = Area("Attic", "You hold the gun in your hands, trembling. You hear more noises coming from downstairs. This time you have something to defend yourself with, at least.")
   private val hallway5 = Area("Hallway", "The sounds seem to get louder as you descend the attic stairs. The noises are difficult to describe: they sometimes sound more " +
@@ -170,6 +160,10 @@ class Adventure:
   private val bathroom5 = Area("Bathroom", "The bathroom is dim, the tiles freezing cold under your feet. The slightest hint of moonlight shines in through the tiny window near the ceiling. " +
     "\n\nIt's suddenly completely silent. The door is closed; you're not sure if you closed it yourself or if it closed on its own." +
     "\n\nYou look around you, searching for the source of the earlier noises.")
+
+  attic4.addThingy(InteractableThingy("cabinet", "The tall, oaken cabinet looms over you as you swing open the door to inspect its contents. A revolver lies on the top shelf.", attic4))
+  attic4.getThingies("cabinet").addSecretExitCommand("take", "", attic5)
+  attic4.getThingies("cabinet").addItem(Item("revolver", "It's made of metal with a worn leather handle. It's heavy."))
 
   attic5.setNeighbor("downstairs", hallway5)
   hallway5.setNeighbor("west", bathroom5)
@@ -187,7 +181,7 @@ class Adventure:
 
   private val destination = bathroom6
 
-  val player = Player(kitchen0)
+  val player = Player(attic4)
 
   /** The number of turns that have passed since the start of the game. */
   var turnCount = 0
@@ -196,13 +190,14 @@ class Adventure:
 
 
   /** Determines if the adventure is complete, that is, if the player has won. */
-  def isComplete = this.player.location == this.destination && this.player.has("remote") && this.player.has("battery")
+  def isComplete = this.player.location == this.destination
 
   /** Determines whether the player has won, lost, or quit, thereby ending the game. */
   def isOver = this.isComplete || this.player.hasQuit || this.turnCount == this.timeLimit
 
   /** Returns a message that is to be displayed to the player at the beginning of the game. */
-  def welcomeMessage = "You are lost in the woods. Find your way back home.\n\nBetter hurry, 'cause Scalatut elämät is on real soon now. And you can't miss Scalkkarit, right?"
+  def welcomeMessage = "You wake up in the black of night. You've been having trouble sleeping lately, but you aren't sure why." +
+    "\nMaybe you could get a glass of water from the kitchen and then try sleeping again."
 
 
   /** Returns a message that is to be displayed to the player at the end of the game. The message
